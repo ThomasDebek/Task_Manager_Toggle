@@ -1,10 +1,48 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/tasks/show.html.erb -->
 
-<%= render @task %>
+<% if notice.present? %>
+  <div class="mb-6 rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-3 text-green-300">
+    <%= notice %>
+  </div>
+<% end %>
 
-<div>
-  <%= link_to "Edit this task", edit_task_path(@task) %> |
-  <%= link_to "Back to tasks", tasks_path %>
+<!-- TASK CONTENT -->
+<div class="rounded-xl border border-slate-700 bg-slate-800 p-6 shadow transition hover:-translate-y-0.5 hover:shadow-lg">
+  <h2 class="text-2xl font-semibold text-white mb-2">
+    <%= @task.title %>
+  </h2>
 
-  <%= button_to "Destroy this task", @task, method: :delete %>
+  <% if @task.description.present? %>
+    <p class="text-sm text-slate-400 mb-4">
+      <%= @task.description %>
+    </p>
+  <% end %>
+
+  <!-- STATUS BADGE -->
+  <div class="flex items-center gap-2 mb-4">
+    <% if @task.completed? %>
+      <span class="inline-flex rounded-full bg-green-400/10 px-3 py-1 text-xs font-medium text-green-300">
+        Completed
+      </span>
+    <% else %>
+      <span class="inline-flex rounded-full bg-blue-400/10 px-3 py-1 text-xs font-medium text-blue-300">
+        Active
+      </span>
+    <% end %>
+
+    <!-- DESTROY BUTTON -->
+    <%= button_to @task, method: :delete, data: { confirm: 'Are you sure?' },
+                  class: 'ml-2 rounded-full bg-red-400/10 px-3 py-1 text-xs font-medium text-red-300 hover:bg-red-400/20 transition-colors' do %>
+      Destroy
+    <% end %>
+  </div>
+
+  <!-- ACTION LINKS -->
+  <div class="flex gap-4">
+    <%= link_to "Edit this task", edit_task_path(@task),
+                class: "rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 transition" %>
+
+    <%= link_to "Back to tasks", tasks_path,
+                class: "rounded-lg bg-slate-700 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-600 transition" %>
+  </div>
 </div>
