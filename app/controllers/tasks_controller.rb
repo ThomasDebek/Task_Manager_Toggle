@@ -5,10 +5,10 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
   end
-
+  
   def toggle
     @task.update!(completed: !@task.completed)
-    redirect_to :tasks_path
+    redirect_to tasks_path
   end
 
   # GET /tasks/1 or /tasks/1.json

@@ -1,17 +1,17 @@
-<div id="<%= dom_id task %>">
-  <p>
-    <strong>Title:</strong>
-    <%= task.title %>
-  </p>
+<p>
+  <strong><%= task.title %></strong><br>
+  <%= task.description %>
+</p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= task.description %>
-  </p>
+<p>
+  Status:
+  <%= task.completed? ? "Completed" : "Active" %>
+</p>
 
-  <p>
-    <strong>Completed:</strong>
-    <%= task.completed %>
-  </p>
+<%= button_to(
+      task.completed? ? "Undo" : "Done",
+      toggle_task_path(task),
+      method: :patch
+    ) %>
 
-</div>
+<hr>
