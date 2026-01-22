@@ -1,9 +1,14 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[ show edit update destroy toggle ]
 
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
+  end
+
+  def toggle
+    @task.update!(completed: !@task.completed)
+    redirect_to :tasks_path
   end
 
   # GET /tasks/1 or /tasks/1.json
