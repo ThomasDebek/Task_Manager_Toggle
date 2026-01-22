@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Task Manager Toggle" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Task Manager Toggle" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
-    <%= yield :head %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <%= yield :head %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-  </head>
+  <!-- Tailwind -->
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+<body class="min-h-screen bg-slate-800 text-gray-100">
+
+<!-- NAVBAR -->
+<nav class="fixed inset-x-0 top-0 z-50 border-b border-slate-700 bg-slate-900/80 backdrop-blur">
+  <div class="container mx-auto flex h-16 items-center justify-between px-5">
+    <div class="flex items-center gap-3">
+          <span class="text-lg font-semibold text-white">
+            Task Manager
+          </span>
+    </div>
+
+    <div class="flex items-center gap-4 text-sm">
+      <%= link_to "Tasks",
+                  tasks_path,
+                  class: "text-slate-300 hover:text-white" %>
+
+      <%= link_to "New task",
+                  new_task_path,
+                  class: "rounded-md bg-indigo-600 px-4 py-2 font-medium text-white
+                              hover:bg-indigo-500" %>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="container mx-auto mt-24 px-5">
+  <%= yield %>
+</main>
+
+</body>
 </html>

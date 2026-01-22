@@ -1,9 +1,12 @@
-<%= form_with(model: task) do |form| %>
-  <% if task.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<%= form_with(model: task, class: "space-y-6") do |form| %>
 
-      <ul>
+  <% if task.errors.any? %>
+    <div class="rounded-lg border border-red-400/30 bg-red-400/10 p-4 text-red-300">
+      <h2 class="mb-2 font-semibold">
+        <%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:
+      </h2>
+
+      <ul class="list-inside list-disc text-sm">
         <% task.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,22 +14,45 @@
     </div>
   <% end %>
 
+  <!-- TITLE -->
   <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.label :title,
+                   class: "mb-1 block text-sm font-medium text-slate-300" %>
+
+    <%= form.text_field :title,
+                        class: "w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-white
+                                shadow-sm placeholder-slate-400
+                                focus:border-indigo-400 focus:ring focus:ring-indigo-400/30" %>
   </div>
 
+  <!-- DESCRIPTION -->
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
+    <%= form.label :description,
+                   class: "mb-1 block text-sm font-medium text-slate-300" %>
+
+    <%= form.textarea :description,
+                      rows: 3,
+                      class: "w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-white
+                              shadow-sm placeholder-slate-400
+                              focus:border-indigo-400 focus:ring focus:ring-indigo-400/30" %>
   </div>
 
-  <div>
-    <%= form.label :completed, style: "display: block" %>
-    <%= form.checkbox :completed %>
+  <!-- COMPLETED -->
+  <div class="flex items-center gap-2">
+    <%= form.checkbox :completed,
+                      class: "h-4 w-4 rounded border-slate-500 bg-slate-800
+                              text-indigo-500 focus:ring-indigo-400" %>
+
+    <%= form.label :completed,
+                   class: "text-sm text-slate-300" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <!-- SUBMIT -->
+  <div class="flex justify-end">
+    <%= form.submit "Save task",
+                    class: "rounded-lg bg-indigo-600 px-6 py-2 text-sm font-semibold text-white
+                            shadow hover:bg-indigo-500
+                            focus:outline-none focus:ring-2 focus:ring-indigo-400" %>
   </div>
+
 <% end %>
